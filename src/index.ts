@@ -15,7 +15,15 @@
 import { resolve, isAbsolute } from 'path';
 import { Compiler, Resolver } from 'webpack';
 import { ResolveRequest, ResolveContext } from 'enhanced-resolve';
-import { Asset } from './loader';
+import { Asset, Assets } from './loader';
+
+
+/**
+ *****************************************
+ * 导出类型
+ *****************************************
+ */
+export type { Asset, Assets };
 
 
 /**
@@ -157,7 +165,7 @@ export class VirtualAssetsWebpackPlugin {
 
 /**
  *****************************************
- * 导出默认接口
+ * 导出接口
  *****************************************
  */
 export default VirtualAssetsWebpackPlugin;

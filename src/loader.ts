@@ -30,7 +30,7 @@ export interface AssetLoader {
  * 资源
  *****************************************
  */
-export type AssetData = string | undefined | Buffer | Record<string, unknown>;
+export type AssetData = string | undefined | Buffer | boolean | number | unknown[] | Record<string, unknown>;
 export type Asset = AssetData | AssetLoader | Promise<AssetData>;
 export type Assets = Map<string, { path: string, data: Asset }>;
 
