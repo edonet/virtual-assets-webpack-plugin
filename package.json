@@ -1,0 +1,39 @@
+{
+    "name": "virtual-assets-webpack-plugin",
+    "version": "0.0.1",
+    "description": "A webpack plugin for dynamical generation assets content!",
+    "keywords": [
+        "webpack",
+        "webpack-plugin",
+        "virtual",
+        "assets",
+        "dynamical"
+    ],
+    "types": "dist/index.d.ts",
+    "main": "dist/index.js",
+    "files": [
+        "src",
+        "dist"
+    ],
+    "scripts": {
+        "start": "esc ./src",
+        "build": "yarn clean && yarn compile",
+        "watch": "yarn compile --watch",
+        "compile": "esc -p ./src",
+        "prepublishOnly": "yarn build",
+        "test": "jest",
+        "clean": "rm -rf ./dist"
+    },
+    "sideEffects": false,
+    "repository": "git@github.com:edonet/virtual-assets-webpack-plugin.git",
+    "author": "edonet@163.com",
+    "license": "MIT",
+    "devDependencies": {
+        "@types/jest": "^27.4.1",
+        "@types/node": "^17.0.21",
+        "css-loader": "^6.7.1",
+        "memfs": "^3.4.1",
+        "style-loader": "^3.3.1",
+        "webpack": "^5.70.0"
+    }
+}
