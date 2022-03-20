@@ -69,8 +69,10 @@ describe('virtaul', () => {
             },
             plugins: [
                 new VirtualAssetsWebpackPlugin({
-                    './fixtures/data.json': () => fs.promises.readFile('/data.json'),
-                    './fixtures/index.css': () => fs.promises.readFile('/style.css'),
+                    './data.json': () => fs.promises.readFile('/data.json'),
+                    './index.css': () => fs.promises.readFile('/style.css'),
+                }),
+                new VirtualAssetsWebpackPlugin({
                     'virtual1': { name: 'virtual-1' },
                     'virtual2': { name: 'virtual-2' },
                 }),

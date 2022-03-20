@@ -17,11 +17,16 @@ import { LoaderContext } from 'webpack';
 
 /**
  *****************************************
- * 资源加载器
+ * 资源供给器
  *****************************************
  */
-export interface AssetLoader {
-    (context: LoaderContext<Assets>): AssetData | Promise<AssetData>;
+export interface Provider {
+
+    /** 添加资源 */
+    set(path: string, asset: Asset): void;
+
+    /** 获取资源 */
+    get(path: string): undefined | Asset;
 }
 
 
@@ -30,9 +35,10 @@ export interface AssetLoader {
  * 资源
  *****************************************
  */
+export type AssetContext = LoaderContext<Provider>;
 export type AssetData = string | undefined | Buffer | boolean | number | unknown[] | Record<string, unknown>;
+export type AssetLoader = (this: AssetContext, context: AssetContext) => AssetData | Promise<AssetData>;
 export type Asset = AssetData | AssetLoader | Promise<AssetData>;
-export type Assets = Map<string, { path: string, data: Asset }>;
 
 
 /**
@@ -40,8 +46,8 @@ export type Assets = Map<string, { path: string, data: Asset }>;
  * 添加拦截对象
  *****************************************
  */
-export async function pitch(this: LoaderContext<Assets>): Promise<string> {
-    let { data } = this.getOptions().get(this.resourcePath) || {};
+export async function pitch(this: AssetContext): Promise<string> {
+    let data = this.getOptions().get(this.resourcePath);
 
     // 处理数据
     if (typeof data === 'function') {
