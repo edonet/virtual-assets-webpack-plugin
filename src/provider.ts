@@ -12,7 +12,7 @@
  * 加载依赖
  *****************************************
  */
-import { resolve, isAbsolute } from 'path';
+import { resolve, isAbsolute, extname } from 'path';
 import { isRelative, resolveModuleDir } from './utils';
 import { Asset, Provider } from './loader';
 
@@ -22,7 +22,7 @@ import { Asset, Provider } from './loader';
  * 资源集
  *****************************************
  */
-type AssetDescription = { path: string, module: boolean, data: Asset };
+type AssetDescription = { path: string, data: Asset, module?: boolean };
 type Assets = Record<string, AssetDescription>;
 
 
@@ -86,17 +86,25 @@ export class VirtualAssetsProvider implements Provider {
 
         // 处理相对路径
         if (isRelative(path)) {
-            return { path: resolve(this.context, path), data, module: false };
+            return { path: resolve(this.context, path), data };
         }
 
         // 处理绝对路径
         if (isAbsolute(path)) {
-            return { path, data, module: false };
+            return { path, data };
+        }
+
+        // 获取扩展名
+        const ext = extname(path);
+
+        // 添加
+        if (!ext) {
+            path += '.js';
         }
 
         // 处理模块
         return {
-            path: resolve(this.moduleDir, path + '.js'),
+            path: resolve(this.moduleDir, path),
             data,
             module: true,
         };

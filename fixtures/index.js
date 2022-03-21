@@ -12,15 +12,9 @@
  * 加载模块
  *****************************************
  */
-import virtual1 from 'virtual1';
-import virtual2 from '../node_modules/virtual2';
-import data from './data';
-import style from './index.css';
-
-
-/**
- *****************************************
- * 导出模块
- *****************************************
- */
-export { data, style, virtual1, virtual2 };
+export * as virtual1 from 'virtual1';
+export * as virtual2 from '../node_modules/virtual2';
+export * as virtual3 from 'virtual.css';
+export * as data from './data';
+export * as css from './index.css';
+export * as style from 'virtual/style.css';

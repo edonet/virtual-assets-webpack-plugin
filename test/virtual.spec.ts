@@ -75,6 +75,8 @@ describe('virtaul', () => {
                 new VirtualAssetsWebpackPlugin({
                     'virtual1': { name: 'virtual-1' },
                     'virtual2': { name: 'virtual-2' },
+                    'virtual.css': '.vir { color: blue; }',
+                    'virtual/style.css': '.vir { color: green; }',
                 }),
             ],
         });
@@ -98,12 +100,16 @@ describe('virtaul', () => {
             // 获取结果
             const result = fs.readFileSync('/dist/index.js', 'utf8');
 
+            // console.log(result);
+
             // 校验内容
             expect(fs.readdirSync('/dist')).toEqual(['index.js']);
             expect(result.indexOf('{name:"data"}') > -1).toBe(true);
             expect(result.indexOf('{ color: red; }') > -1).toBe(true);
             expect(result.indexOf('{name:"virtual-1"}') > -1).toBe(true);
             expect(result.indexOf('{name:"virtual-2"}') > -1).toBe(true);
+            expect(result.indexOf('{ color: blue; }') > -1).toBe(true);
+            expect(result.indexOf('{ color: green; }') > -1).toBe(true);
 
             // 编译结束
             done();
